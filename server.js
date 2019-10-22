@@ -66,7 +66,7 @@ const main = () => {
                 let subject_match = data.comment.body.match(
                     /[bB]etreff\:\s*(?<subject>.+)/
                 );
-                let subject = subject_match ? subject_match.groups.subject : null;
+                let subject = subject_match ? data.issue.key + ': ' + subject_match.groups.subject : null;
 
                 let body_match = data.comment.body.match(
                     /[bB]etreff\:\s*.+\s(?<body>[^]*)/
@@ -88,7 +88,9 @@ const main = () => {
                 logger.log('info', 'SMTP result: ', info);
                 return ('ok');
             } catch (e) {
+                status(500).send(e.message);
                 logger.log('error', e.message);
+                return ('nok');
             }
         }),
         error(ctx => {
