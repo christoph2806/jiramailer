@@ -1,3 +1,9 @@
+# webstorm .idea
+.idea/
+
+# credentials
+secrets.js
+
 # Logs
 logs
 *.log

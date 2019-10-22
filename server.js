@@ -1,4 +1,5 @@
 const server = require('server');
+const secrets = require('secrets');
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 const fs = require('fs-jetpack');
@@ -26,10 +27,7 @@ const transporter = nodemailer.createTransport({
     host: 'smtp-relay.gmail.com',
     port: 465,
     secure: true, // true for 465, false for other ports
-    auth: {
-        user: 'c.mussenbrock@progeno.de',
-        pass: 'sZFKbVuToVfDspoe'
-    }
+    auth: secrets.auth
 });
 
 const main = () => {
@@ -55,7 +53,7 @@ const main = () => {
                             filename: item.filename,
                             contentType: item.mimeType,
                             href: item.content,
-                            httpHeaders: {Authorization: 'Basic ' + Buffer.from("christoph:PW91#lack").toString('base64')}
+                            httpHeaders: {Authorization: 'Basic ' + Buffer.from(secrets.basicauth).toString('base64')}
                         });
                     }
                 });
