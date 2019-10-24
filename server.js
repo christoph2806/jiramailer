@@ -82,11 +82,15 @@ const main = () => {
     }, [
         post('/', async ctx => {
             try {
+
+                let data = ctx.data;
+                let attachments = [];
+
                 logger.log(
                     'info',
                     'Request received, issue: ' +
-                    ctx.data.issue.key + ' ' +
-                    ctx.data.issue.fields.summary);
+                    data.issue.key + ' ' +
+                    data.issue.fields.summary);
 //                logger.log('info', ctx.data);
 
                 let recipient_match = data.comment.body.match(
@@ -101,9 +105,6 @@ const main = () => {
                 }
 
                 logger.log('info', 'Recipient: ' + recipient);
-
-                let data = ctx.data;
-                let attachments = [];
                 data.issue.fields.attachment.forEach(item => {
                     if (data.comment.body.search(item.filename) > -1) {
                         attachments.push({
