@@ -80,6 +80,9 @@ const main = () => {
             csrf: {ignoreMethods: ['POST']},
         }
     }, [
+        get('/healthcheck', async ctx => {
+           return 'ok';
+        }),
         post('/', async ctx => {
             try {
 
